@@ -23,6 +23,18 @@
       box-sizing: border-box;
     }
     
+    /* Canvas for Matrix Effect */
+    #matrix-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      z-index: -1; /* Ensure the canvas is behind other content */
+      pointer-events: none; /* Allow clicks to pass through */
+    }
+
     body {
       min-height: 100%;
       padding: 40px 20px;
@@ -30,6 +42,8 @@
       color: #e0e0e0;
       font-family: 'JetBrains Mono', monospace;
       transition: background 0.3s, color 0.3s;
+      position: relative; /* To ensure stacking context with canvas */
+      overflow: hidden; /* Hide any overflow from the canvas */
     }
 
     .main-container {
@@ -40,6 +54,8 @@
       padding: 20px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(10px);
+      position: relative; /* To be above the canvas */
+      z-index: 1; /* Ensure it's above the canvas */
     }
 
     .image-row {
@@ -93,7 +109,7 @@
     }
 
     .icons-row a:hover {
-      color: #ffd700; /* Gold color on hover */
+      color: #00ffff; /* Cyan color on hover for better contrast with blue Matrix effect */
     }
 
     .links-row {
@@ -135,7 +151,7 @@
     }
 
     .links-row .item a.link-text:hover {
-      color: #ffd700; /* Gold color on hover */
+      color: #00ffff; /* Cyan color on hover for consistency */
     }
 
     /* Responsive Design */
@@ -159,9 +175,13 @@
   </style>
 </head>
 <body>
+  <!-- Canvas for Matrix Effect -->
+  <canvas id="matrix-canvas"></canvas>
+
   <div class="main-container">
     <div class="image-row">
-      <img src="/ai.jpg" alt="Artificial Intelligence Stock Image">
+      <i class="ph ph-toolbox" style="font-size: 96px;"></i>
+
     </div>
 
     <div class="name-row">
@@ -170,15 +190,15 @@
     
     <div class="icons-row">
       <a href="https://chatgpt.com/" target="_blank" title="Chat GPT">
-        <i class="ph ph-chat-text"></i>
+        <i class="ph ph-open-ai-logo"></i>
         <p>Chat GPT</p>
       </a>
       <a href="https://claude.ai/" target="_blank" title="Claude">
-        <i class="ph ph-chat-square-text"></i>
+        <i class="ph ph-asterisk-simple"></i>
         <p>Claude</p>
       </a>
       <a href="https://bolt.new/" target="_blank" title="Bolt">
-        <i class="ph ph-link"></i>
+        <i class="ph ph-lightning"></i>
         <p>Bolt</p>
       </a>
       <a href="https://github.com/Grantsullens" target="_blank" title="GitHub">
@@ -220,5 +240,67 @@
       <!-- Add more items as needed -->
     </div>
   </div>
+
+  <!-- Matrix Effect JavaScript -->
+  <script>
+    // Matrix Effect Script
+    const canvas = document.getElementById('matrix-canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Set canvas to full screen
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Characters - you can customize this
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%';
+    const fontSize = 16;
+    const columns = canvas.width / fontSize; // Number of columns for the rain
+    const drops = [];
+
+    // Initialize drops
+    for (let x = 0; x < columns; x++) {
+      drops[x] = Math.random() * canvas.height / fontSize;
+    }
+
+    // Draw the characters
+    function draw() {
+      // Black background with slight transparency to create trailing effect
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Set the color to cyan for the Matrix effect
+      ctx.fillStyle = '#00ffff'; // You can change to blue: '#00aaff'
+      ctx.font = fontSize + 'px JetBrains Mono';
+
+      // Loop over drops
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters.charAt(Math.floor(Math.random() * letters.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        // Reset drop to top randomly after it has crossed the screen
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+
+        // Increment Y coordinate for the drop
+        drops[i]++;
+      }
+    }
+
+    // Animation loop
+    setInterval(draw, 33); // Approximately 30 frames per second
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      // Recalculate columns
+      const newColumns = canvas.width / fontSize;
+      drops.length = 0;
+      for (let x = 0; x < newColumns; x++) {
+        drops[x] = Math.random() * canvas.height / fontSize;
+      }
+    });
+  </script>
 </body>
 </html>
