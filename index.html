@@ -26,18 +26,20 @@
     body {
       min-height: 100%;
       padding: 40px 20px;
-      background: linear-gradient(180deg, #1f005c, #5b0060, #870160, #ac255e, #ca485c, #e16b5c, #f39060, #ffb56b);
-      color: rgba(255, 255, 255, 1.0);
+      background: linear-gradient(180deg, #121212, #1e1e1e, #242424, #2c2c2c, #323232, #3a3a3a, #424242, #4a4a4a);
+      color: #e0e0e0;
       font-family: 'JetBrains Mono', monospace;
+      transition: background 0.3s, color 0.3s;
     }
 
     .main-container {
       max-width: 640px;
       margin: auto;
-      background-color: rgba(149, 123, 173, 0.5);
+      background-color: rgba(40, 40, 40, 0.85);
       border-radius: 20px;
       padding: 20px;
-      box-shadow: 4px 4px 10px 0px rgba(122,32,122,0.5);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
     }
 
     .image-row {
@@ -50,15 +52,22 @@
       height: 128px;
       object-fit: cover;
       border-radius: 50%;
-      border: 3px solid rgba(255, 255, 255, 0.5);
+      border: 3px solid rgba(224, 224, 224, 0.2);
     }
 
     .name-row {
       text-align: center;
       font-family: 'JetBrains Mono', monospace;
       font-size: 24px;
-      font-weight: 700;
+      font-weight: 500;
       margin-bottom: 30px;
+      color: #ffffff;
+    }
+
+    .name-row span {
+      font-weight: 300;
+      font-size: 18px;
+      color: #b0b0b0;
     }
 
     .icons-row {
@@ -68,10 +77,19 @@
     }
 
     .icons-row a {
-      color: rgba(255, 255, 255, 1.0);
+      color: #e0e0e0;
       font-size: 24px;
       text-decoration: none;
       transition: color 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .icons-row a p {
+      margin-top: 5px;
+      font-size: 14px;
+      color: #cccccc;
     }
 
     .icons-row a:hover {
@@ -87,15 +105,15 @@
     .links-row .item {
       display: flex;
       align-items: center;
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(60, 60, 60, 0.9);
       border-radius: 10px;
       padding: 10px;
       transition: background-color 0.3s, transform 0.3s;
     }
 
     .links-row .item:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-5px);
+      background-color: rgba(80, 80, 80, 0.95);
+      transform: translateY(-3px);
     }
 
     .links-row .item img.thumbnail {
@@ -104,12 +122,13 @@
       object-fit: cover;
       border-radius: 8px;
       margin-right: 15px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
     }
 
     .links-row .item a.link-text {
       flex-grow: 1;
       text-align: left;
-      color: rgba(255, 255, 255, 1.0);
+      color: #e0e0e0;
       text-decoration: none;
       font-size: 18px;
       transition: color 0.3s;
@@ -122,10 +141,18 @@
     /* Responsive Design */
     @media (max-width: 480px) {
       .icons-row a {
-        font-size: 20px;
+        font-size: 28px;
       }
 
       .links-row .item a.link-text {
+        font-size: 16px;
+      }
+
+      .name-row {
+        font-size: 20px;
+      }
+
+      .name-row span {
         font-size: 16px;
       }
     }
@@ -138,21 +165,25 @@
     </div>
 
     <div class="name-row">
-      Hackin' Stuff Together <br>[A Toolbox]
+      hackin stuff together <br><span>a toolbox</span>
     </div>
     
     <div class="icons-row">
       <a href="https://chatgpt.com/" target="_blank" title="Chat GPT">
         <i class="ph ph-chat-text"></i>
+        <p>Chat GPT</p>
       </a>
       <a href="https://claude.ai/" target="_blank" title="Claude">
         <i class="ph ph-chat-square-text"></i>
+        <p>Claude</p>
       </a>
       <a href="https://bolt.new/" target="_blank" title="Bolt">
         <i class="ph ph-link"></i>
+        <p>Bolt</p>
       </a>
       <a href="https://github.com/Grantsullens" target="_blank" title="GitHub">
         <i class="ph ph-github-logo"></i>
+        <p>GitHub</p>
       </a>
     </div>
 
