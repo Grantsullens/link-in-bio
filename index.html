@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hackin' Stuff Together | A Toolbox</title>
+  <title>grant's link collection | a toolbox</title>
   <meta name="description" content="Hackin' Stuff Together | A Toolbox - Your go-to link-in-bio page featuring Chat GPT, Claude AI, Bolt, GitHub, and more.">
   
   <!-- Phosphor Icons -->
@@ -23,9 +23,9 @@
       box-sizing: border-box;
     }
     
-    /* Canvas for Matrix Effect */
-    #matrix-canvas {
-      position: fixed;
+    /* Canvas for Starburst Effect */
+    #starburst-canvas {
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
@@ -36,14 +36,14 @@
     }
 
     body {
-      min-height: 100%;
+      min-height: 100vh;
       padding: 40px 20px;
-      background: linear-gradient(180deg, #121212, #1e1e1e, #242424, #2c2c2c, #323232, #3a3a3a, #424242, #4a4a4a);
+      background: #121212; /* Solid dark background for dark mode */
       color: #e0e0e0;
       font-family: 'JetBrains Mono', monospace;
       transition: background 0.3s, color 0.3s;
       position: relative; /* To ensure stacking context with canvas */
-      overflow: hidden; /* Hide any overflow from the canvas */
+      overflow-x: hidden; /* Prevent horizontal scroll */
     }
 
     .main-container {
@@ -63,12 +63,8 @@
       margin-bottom: 20px;
     }
 
-    .image-row img {
-      width: 128px;
-      height: 128px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 3px solid rgba(224, 224, 224, 0.2);
+    .image-row i {
+      font-size: 96px;
     }
 
     .name-row {
@@ -90,6 +86,7 @@
       display: flex;
       justify-content: space-around;
       margin-bottom: 30px;
+      flex-wrap: wrap; /* Allow wrapping on smaller screens */
     }
 
     .icons-row a {
@@ -100,6 +97,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      margin: 10px; /* Add margin for better spacing */
     }
 
     .icons-row a p {
@@ -109,7 +107,7 @@
     }
 
     .icons-row a:hover {
-      color: #00ffff; /* Cyan color on hover for better contrast with blue Matrix effect */
+      color: #00ffff; /* Cyan color on hover */
     }
 
     .links-row {
@@ -120,11 +118,12 @@
 
     .links-row .item {
       display: flex;
-      align-items: center;
+      align-items: flex-start; /* Align items to the top to accommodate descriptions */
       background-color: rgba(60, 60, 60, 0.9);
       border-radius: 10px;
       padding: 10px;
       transition: background-color 0.3s, transform 0.3s;
+      flex-direction: column; /* Stack thumbnail and text vertically */
     }
 
     .links-row .item:hover {
@@ -137,21 +136,70 @@
       height: 48px;
       object-fit: cover;
       border-radius: 8px;
-      margin-right: 15px;
+      margin-bottom: 10px;
       border: 2px solid rgba(255, 255, 255, 0.1);
     }
 
     .links-row .item a.link-text {
-      flex-grow: 1;
       text-align: left;
       color: #e0e0e0;
       text-decoration: none;
       font-size: 18px;
+      font-weight: 500;
       transition: color 0.3s;
+      margin-bottom: 5px;
+      display: block;
     }
 
     .links-row .item a.link-text:hover {
       color: #00ffff; /* Cyan color on hover for consistency */
+    }
+
+    /* Description styling */
+    .links-row .item .description {
+      font-size: 12px;
+      font-weight: 100;
+      color: #b0b0b0;
+    }
+
+    /* New styles for the link input and button */
+    .link-input-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 30px;
+      flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    }
+
+    .link-input-row input {
+      flex: 1;
+      min-width: 200px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #e0e0e0;
+    }
+
+    .link-input-row input::placeholder {
+      color: #cccccc;
+    }
+
+    .link-input-row button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: #00ffff;
+      color: #121212;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .link-input-row button:hover {
+      background-color: #00cccc;
     }
 
     /* Responsive Design */
@@ -171,17 +219,30 @@
       .name-row span {
         font-size: 16px;
       }
+
+      .link-input-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .link-input-row input, .link-input-row button {
+        width: 100%;
+      }
+
+      /* Ensure descriptions are readable on smaller screens */
+      .links-row .item .description {
+        font-size: 10px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Canvas for Matrix Effect -->
-  <canvas id="matrix-canvas"></canvas>
+  <!-- Canvas for Starburst Effect -->
+  <canvas id="starburst-canvas"></canvas>
 
   <div class="main-container">
     <div class="image-row">
-      <i class="ph ph-toolbox" style="font-size: 96px;"></i>
-
+      <i class="ph ph-toolbox"></i>
     </div>
 
     <div class="name-row">
@@ -189,116 +250,281 @@
     </div>
     
     <div class="icons-row">
-      <a href="https://chatgpt.com/" target="_blank" title="Chat GPT">
+      <a href="https://chatgpt.com/" target="_blank" title="Chat GPT" aria-label="Chat GPT">
         <i class="ph ph-open-ai-logo"></i>
         <p>Chat GPT</p>
       </a>
-      <a href="https://claude.ai/" target="_blank" title="Claude">
+      <a href="https://claude.ai/" target="_blank" title="Claude" aria-label="Claude">
         <i class="ph ph-asterisk-simple"></i>
         <p>Claude</p>
       </a>
-      <a href="https://bolt.new/" target="_blank" title="Bolt">
+      <a href="https://bolt.new/" target="_blank" title="Bolt" aria-label="Bolt">
         <i class="ph ph-lightning"></i>
         <p>Bolt</p>
       </a>
-      <a href="https://github.com/Grantsullens" target="_blank" title="GitHub">
+      <a href="https://github.com/Grantsullens" target="_blank" title="GitHub" aria-label="GitHub">
         <i class="ph ph-github-logo"></i>
         <p>GitHub</p>
       </a>
     </div>
+    
+    <!-- New Link Input Row -->
+    <div class="link-input-row">
+      <input type="url" id="user-link" placeholder="paste link, get markdown" />
+      <button id="jina-button">Jina AI</button>
+    </div>
 
     <div class="links-row">
-      <!-- Example Link Item -->
+      <!-- Mathpix Convert API Docs -->
       <div class="item">
-        <img class="thumbnail" src="/thumbnails/chatgpt.png" alt="Chat GPT">
-        <a class="link-text" href="https://chatgpt.com/" target="_blank">
-          Chat GPT
+        <img class="thumbnail" src="thumbs/mathpix.png" alt="Mathpix Convert API Docs">
+        <a class="link-text" href="https://docs.mathpix.com/#introduction" target="_blank">
+          Mathpix Convert API Docs
         </a>
+        <p class="description">Comprehensive documentation for the Mathpix Convert API, enabling seamless integration of OCR and math recognition into your applications.</p>
       </div>
 
+      <!-- Open Router -->
       <div class="item">
-        <img class="thumbnail" src="/thumbnails/claude.png" alt="Claude AI">
-        <a class="link-text" href="https://claude.ai/" target="_blank">
-          Claude AI
+        <img class="thumbnail" src="thumbs/openrouter.jpg" alt="Open Router">
+        <a class="link-text" href="https://openrouter.ai/" target="_blank">
+          Open Router
         </a>
+        <p class="description">Query multiple large language models simultaneously and view their outputs in a single, unified interface.</p>
       </div>
 
+      <!-- Phosphor Icons -->
       <div class="item">
-        <img class="thumbnail" src="/thumbnails/bolt.png" alt="Bolt">
-        <a class="link-text" href="https://bolt.new/" target="_blank">
-          Bolt
+        <img class="thumbnail" src="thumbs/phosphor.png" alt="Phosphor Icons">
+        <a class="link-text" href="https://phosphoricons.com/" target="_blank">
+          Phosphor Icons
         </a>
+        <p class="description">A versatile set of clean and neat icons designed to seamlessly integrate into your HTML projects.</p>
       </div>
 
+      <!-- Reactive Resume -->
       <div class="item">
-        <img class="thumbnail" src="/thumbnails/github.png" alt="GitHub">
-        <a class="link-text" href="https://github.com/Grantsullens" target="_blank">
-          GitHub
+        <img class="thumbnail" src="thumbs/rxresume.png" alt="Reactive Resume">
+        <a class="link-text" href="https://github.com/AmruthPillai/Reactive-Resume" target="_blank">
+          Reactive Resume
         </a>
+        <p class="description">An open-source resume builder built with React, allowing for quick edits and maintaining a polished appearance.</p>
       </div>
 
-      <!-- Add more items as needed -->
+      <!-- Playwright Python Docs -->
+      <div class="item">
+        <img class="thumbnail" src="thumbs/playwright.jpeg" alt="Playwright Python Docs">
+        <a class="link-text" href="https://playwright.dev/python/docs/intro" target="_blank">
+          Playwright Python Docs
+        </a>
+        <p class="description">A Python package for browser automation, ideal for automating repetitive and administrative tasks with ease.</p>
+      </div>
+
+      <!-- ELL -->
+      <div class="item">
+        <img class="thumbnail" src="/thumbs/ell.png" alt="ELL">
+        <a class="link-text" href="https://github.com/MadcowD/ell" target="_blank">
+          ELL
+        </a>
+        <p class="description">A lightweight framework for integrating LLM APIs without the hassle of lengthy API requests.</p>
+      </div>
+
+      <!-- Hacker News -->
+      <div class="item">
+        <img class="thumbnail" src="thumbs/HN.png" alt="Hacker News">
+        <a class="link-text" href="https://hn.algolia.com/" target="_blank">
+          Hacker News
+        </a>
+        <p class="description">Stay updated on the latest developments in the digital landscape with real-time Hacker News feeds.</p>
+      </div>
+
+      <!-- LangChain Docs -->
+      <div class="item">
+        <img class="thumbnail" src="thumbs/Langchain.jpeg" alt="LangChain Docs">
+        <a class="link-text" href="https://python.langchain.com/v0.2/docs/introduction/" target="_blank">
+          LangChain Docs
+        </a>
+        <p class="description">Official documentation for LangChain, a framework for developing applications powered by language models.</p>
+      </div>
+
+      <!-- Hugging Face Models -->
+      <div class="item">
+        <img class="thumbnail" src="thumbs/huggingface.png" alt="Hugging Face Models">
+        <a class="link-text" href="https://huggingface.co/models" target="_blank">
+          Hugging Face Models
+        </a>
+        <p class="description">Explore a vast repository of pre-trained models for various machine learning tasks provided by Hugging Face.</p>
+      </div>
+
+      <!-- Flic Button Documentation -->
+      <div class="item">
+        <img class="thumbnail" src="thumbs/Flick.png" alt="Flic Button Documentation">
+        <a class="link-text" href="https://github.com/50ButtonsEach/flic2-documentation" target="_blank">
+          Flic Button Documentation
+        </a>
+        <p class="description">Guides and resources for using Flic Buttons as physical triggers for scripts and other automated actions.</p>
+      </div>
     </div>
   </div>
 
-  <!-- Matrix Effect JavaScript -->
+  <!-- Starburst Effect JavaScript -->
   <script>
-    // Matrix Effect Script
-    const canvas = document.getElementById('matrix-canvas');
+    // Starburst Effect Script
+    const canvas = document.getElementById('starburst-canvas');
     const ctx = canvas.getContext('2d');
 
-    // Set canvas to full screen
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    // Characters - you can customize this
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%';
-    const fontSize = 16;
-    const columns = canvas.width / fontSize; // Number of columns for the rain
-    const drops = [];
-
-    // Initialize drops
-    for (let x = 0; x < columns; x++) {
-      drops[x] = Math.random() * canvas.height / fontSize;
+    // Set canvas to match the document size
+    function resizeCanvas() {
+      canvas.width = document.documentElement.scrollWidth;
+      canvas.height = document.documentElement.scrollHeight;
     }
 
-    // Draw the characters
-    function draw() {
-      // Black background with slight transparency to create trailing effect
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    resizeCanvas();
 
-      // Set the color to cyan for the Matrix effect
-      ctx.fillStyle = '#00ffff'; // You can change to blue: '#00aaff'
-      ctx.font = fontSize + 'px JetBrains Mono';
+    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('scroll', resizeCanvas);
 
-      // Loop over drops
-      for (let i = 0; i < drops.length; i++) {
-        const text = letters.charAt(Math.floor(Math.random() * letters.length));
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+    // Starburst Class
+    class Starburst {
+      constructor(x, y) {
+        this.originX = x;
+        this.originY = y;
+        this.stars = [];
+        this.numStars = 20; // Number of stars per starburst
+        this.maxRadius = 2;
+        this.maxDistance = 150; // Maximum distance from origin
+        this.spawnTime = Date.now();
+        this.duration = 3000; // Duration before starburst fades out (in ms)
+        this.opacity = 1;
+        this.createStars();
+      }
 
-        // Reset drop to top randomly after it has crossed the screen
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
+      createStars() {
+        for (let i = 0; i < this.numStars; i++) {
+          const angle = Math.random() * 2 * Math.PI;
+          const speed = 0.5 + Math.random() * 1.0;
+          const distance = 0;
+          const opacity = 0.5 + Math.random() * 0.5;
+          this.stars.push({
+            angle: angle,
+            speed: speed,
+            distance: distance,
+            opacity: opacity
+          });
+        }
+      }
+
+      update(deltaTime) {
+        this.stars.forEach(star => {
+          star.distance += star.speed * deltaTime;
+        });
+      }
+
+      draw(ctx, currentTime) {
+        // Calculate elapsed time
+        const elapsed = currentTime - this.spawnTime;
+        if (elapsed > this.duration) {
+          this.opacity -= 0.01; // Fade out
         }
 
-        // Increment Y coordinate for the drop
-        drops[i]++;
+        ctx.save();
+        ctx.globalAlpha = this.opacity;
+        ctx.fillStyle = 'rgba(0, 255, 255, 0.8)'; // Cyan color for stars
+
+        this.stars.forEach(star => {
+          const x = this.originX + star.distance * Math.cos(star.angle);
+          const y = this.originY + star.distance * Math.sin(star.angle);
+
+          // Draw star as a circle
+          ctx.beginPath();
+          ctx.arc(x, y, this.maxRadius, 0, 2 * Math.PI);
+          ctx.fill();
+        });
+
+        ctx.restore();
+      }
+
+      isDead(currentTime) {
+        return (currentTime - this.spawnTime) > (this.duration + 1000);
       }
     }
 
-    // Animation loop
-    setInterval(draw, 33); // Approximately 30 frames per second
+    // Manage multiple starbursts
+    const starbursts = [];
+    const maxStarbursts = 10; // Maximum concurrent starbursts
+    const spawnInterval = 1000; // Time between spawns in ms
 
-    // Handle window resize
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      // Recalculate columns
-      const newColumns = canvas.width / fontSize;
-      drops.length = 0;
-      for (let x = 0; x < newColumns; x++) {
-        drops[x] = Math.random() * canvas.height / fontSize;
+    // Function to spawn a new starburst at a random position
+    function spawnStarburst() {
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * canvas.height;
+      starbursts.push(new Starburst(x, y));
+
+      // Limit the number of starbursts
+      if (starbursts.length > maxStarbursts) {
+        starbursts.shift(); // Remove the oldest starburst
+      }
+    }
+
+    // Initial spawn
+    spawnStarburst();
+
+    // Spawn new starbursts at intervals
+    setInterval(spawnStarburst, spawnInterval);
+
+    // Animation loop using requestAnimationFrame
+    let lastTime = performance.now();
+
+    function animate(currentTime) {
+      const deltaTime = (currentTime - lastTime) / 1000; // In seconds
+      lastTime = currentTime;
+
+      // Clear the canvas with a semi-transparent fill to create trailing effect
+      ctx.fillStyle = 'rgba(18, 18, 18, 0.1)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Update and draw each starburst
+      for (let i = starbursts.length - 1; i >= 0; i--) {
+        const starburst = starbursts[i];
+        starburst.update(deltaTime);
+        starburst.draw(ctx, currentTime);
+
+        // Remove starburst if it's completely faded out
+        if (starburst.isDead(currentTime)) {
+          starbursts.splice(i, 1);
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+
+    // Optional: Allow user to click to create starbursts manually
+    /*
+    canvas.addEventListener('click', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left + window.scrollX;
+      const y = e.clientY - rect.top + window.scrollY;
+      starbursts.push(new Starburst(x, y));
+    });
+    */
+  </script>
+
+  <!-- Jina AI Link Processing Script -->
+  <script>
+    document.getElementById('jina-button').addEventListener('click', function() {
+      const userLink = document.getElementById('user-link').value.trim();
+      if (userLink) {
+        // Ensure the userLink does not already start with https://r.jina.ai/
+        const prefix = 'https://r.jina.ai/';
+        let newUrl = userLink;
+        if (!userLink.startsWith(prefix)) {
+          newUrl = prefix + userLink;
+        }
+        window.open(newUrl, '_blank');
+      } else {
+        alert('Please enter a valid URL.');
       }
     });
   </script>
