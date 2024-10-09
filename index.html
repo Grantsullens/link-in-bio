@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>grant's link collection | a toolbox</title>
+  <title>Grant's Digital Toolbox | a collection of useful links</title>
   <meta name="description" content="Hackin' Stuff Together | A Toolbox - Your go-to link-in-bio page featuring Chat GPT, Claude AI, Bolt, GitHub, and more.">
   
   <!-- Phosphor Icons -->
@@ -110,6 +110,73 @@
       color: #00ffff; /* Cyan color on hover */
     }
 
+    /* Filter Pills Container */
+    .filter-pills {
+      display: flex;
+      justify-content: flex-end; /* Right align the pills */
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+
+    /* Filter Pills Styling */
+    .filter-pills button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 20px;
+      color: #e0e0e0;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+      font-size: 14px;
+    }
+
+    /* Specific Colors for Each Pill */
+    .filter-pills .pill-tools {
+      background-color: rgb(132, 148, 131); /* Tools */
+    }
+
+    .filter-pills .pill-docs {
+      background-color: rgb(78, 147, 122); /* Docs */
+    }
+
+    .filter-pills .pill-repos {
+      background-color: rgb(180, 101, 111); /* Repos */
+    }
+
+    .filter-pills .pill-news {
+      background-color: rgb(148, 131, 146); /* News */
+    }
+
+    .filter-pills .pill-ui {
+      background-color: rgb(18, 44, 52); /* UI */
+    }
+
+    /* Active and Hover States for Pills */
+    .filter-pills button.active,
+    .filter-pills button:hover {
+      background-color: #00ffff;
+      color: #121212;
+    }
+
+    /* Ensuring hover states match the active state */
+    .filter-pills button.pill-tools.active,
+    .filter-pills button.pill-docs.active,
+    .filter-pills button.pill-repos.active,
+    .filter-pills button.pill-news.active,
+    .filter-pills button.pill-ui.active {
+      background-color: #00ffff;
+      color: #121212;
+    }
+
+    .filter-pills button.pill-tools:hover,
+    .filter-pills button.pill-docs:hover,
+    .filter-pills button.pill-repos:hover,
+    .filter-pills button.pill-news:hover,
+    .filter-pills button.pill-ui:hover {
+      background-color: #00cccc;
+      color: #121212;
+    }
+
     .links-row {
       display: flex;
       flex-direction: column;
@@ -124,6 +191,7 @@
       padding: 10px;
       transition: background-color 0.3s, transform 0.3s;
       flex-direction: column; /* Stack thumbnail and text vertically */
+      position: relative; /* For positioning the category label */
     }
 
     .links-row .item:hover {
@@ -160,6 +228,19 @@
       font-size: 12px;
       font-weight: 100;
       color: #b0b0b0;
+    }
+
+    /* Category Label Styling */
+    .links-row .item .category-label {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #e0e0e0;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
     }
 
     /* New styles for the link input and button */
@@ -233,6 +314,12 @@
       .links-row .item .description {
         font-size: 10px;
       }
+
+      /* Adjust category labels on smaller screens */
+      .links-row .item .category-label {
+        font-size: 10px;
+        padding: 2px 6px;
+      }
     }
   </style>
 </head>
@@ -246,7 +333,7 @@
     </div>
 
     <div class="name-row">
-      hackin stuff together <br><span>a toolbox</span>
+      Grant's Digital Toolbox <br><span>a collection of useful links</span>
     </div>
     
     <div class="icons-row">
@@ -268,6 +355,16 @@
       </a>
     </div>
     
+    <!-- Filter Pills -->
+    <div class="filter-pills">
+      <button class="pill active" data-filter="all">All</button>
+      <button class="pill pill-tools" data-filter="Tools">Tools</button>
+      <button class="pill pill-docs" data-filter="Docs">Docs</button>
+      <button class="pill pill-repos" data-filter="Repos">Repos</button>
+      <button class="pill pill-news" data-filter="News">News</button>
+      <button class="pill pill-ui" data-filter="UI">UI</button>
+    </div>
+    
     <!-- New Link Input Row -->
     <div class="link-input-row">
       <input type="url" id="user-link" placeholder="paste link, get markdown" />
@@ -276,7 +373,8 @@
 
     <div class="links-row">
       <!-- Mathpix Convert API Docs -->
-      <div class="item">
+      <div class="item" data-category="Docs">
+        <span class="category-label">Docs</span>
         <img class="thumbnail" src="thumbs/mathpix.png" alt="Mathpix Convert API Docs">
         <a class="link-text" href="https://docs.mathpix.com/#introduction" target="_blank">
           Mathpix Convert API Docs
@@ -285,7 +383,8 @@
       </div>
 
       <!-- Open Router -->
-      <div class="item">
+      <div class="item" data-category="Tools">
+        <span class="category-label">Tools</span>
         <img class="thumbnail" src="thumbs/openrouter.jpg" alt="Open Router">
         <a class="link-text" href="https://openrouter.ai/" target="_blank">
           Open Router
@@ -294,7 +393,8 @@
       </div>
 
       <!-- Phosphor Icons -->
-      <div class="item">
+      <div class="item" data-category="UI">
+        <span class="category-label">UI</span>
         <img class="thumbnail" src="thumbs/phosphor.png" alt="Phosphor Icons">
         <a class="link-text" href="https://phosphoricons.com/" target="_blank">
           Phosphor Icons
@@ -303,7 +403,8 @@
       </div>
 
       <!-- Reactive Resume -->
-      <div class="item">
+      <div class="item" data-category="Repos">
+        <span class="category-label">Repos</span>
         <img class="thumbnail" src="thumbs/rxresume.png" alt="Reactive Resume">
         <a class="link-text" href="https://github.com/AmruthPillai/Reactive-Resume" target="_blank">
           Reactive Resume
@@ -312,7 +413,8 @@
       </div>
 
       <!-- Playwright Python Docs -->
-      <div class="item">
+      <div class="item" data-category="Docs">
+        <span class="category-label">Docs</span>
         <img class="thumbnail" src="thumbs/playwright.jpeg" alt="Playwright Python Docs">
         <a class="link-text" href="https://playwright.dev/python/docs/intro" target="_blank">
           Playwright Python Docs
@@ -321,8 +423,9 @@
       </div>
 
       <!-- ELL -->
-      <div class="item">
-        <img class="thumbnail" src="/thumbs/ell.png" alt="ELL">
+      <div class="item" data-category="Repos">
+        <span class="category-label">Repos</span>
+        <img class="thumbnail" src="thumbs/ell.png" alt="ELL">
         <a class="link-text" href="https://github.com/MadcowD/ell" target="_blank">
           ELL
         </a>
@@ -330,7 +433,8 @@
       </div>
 
       <!-- Hacker News -->
-      <div class="item">
+      <div class="item" data-category="News">
+        <span class="category-label">News</span>
         <img class="thumbnail" src="thumbs/HN.png" alt="Hacker News">
         <a class="link-text" href="https://hn.algolia.com/" target="_blank">
           Hacker News
@@ -339,7 +443,8 @@
       </div>
 
       <!-- LangChain Docs -->
-      <div class="item">
+      <div class="item" data-category="Docs">
+        <span class="category-label">Docs</span>
         <img class="thumbnail" src="thumbs/Langchain.jpeg" alt="LangChain Docs">
         <a class="link-text" href="https://python.langchain.com/v0.2/docs/introduction/" target="_blank">
           LangChain Docs
@@ -348,7 +453,8 @@
       </div>
 
       <!-- Hugging Face Models -->
-      <div class="item">
+      <div class="item" data-category="Repos">
+        <span class="category-label">Repos</span>
         <img class="thumbnail" src="thumbs/huggingface.png" alt="Hugging Face Models">
         <a class="link-text" href="https://huggingface.co/models" target="_blank">
           Hugging Face Models
@@ -357,12 +463,23 @@
       </div>
 
       <!-- Flic Button Documentation -->
-      <div class="item">
+      <div class="item" data-category="Docs">
+        <span class="category-label">Docs</span>
         <img class="thumbnail" src="thumbs/Flick.png" alt="Flic Button Documentation">
         <a class="link-text" href="https://github.com/50ButtonsEach/flic2-documentation" target="_blank">
           Flic Button Documentation
         </a>
         <p class="description">Guides and resources for using Flic Buttons as physical triggers for scripts and other automated actions.</p>
+      </div>
+      
+      <!-- Coolors (Color Palette Generator) UI -->
+      <div class="item" data-category="UI">
+        <span class="category-label">UI</span>
+        <img class="thumbnail" src="thumbs/coolors.png" alt="Coolors (Color Palette Generator)">
+        <a class="link-text" href="https://coolors.co/generate" target="_blank">
+          Coolors (Color Palette Generator)
+        </a>
+        <p class="description">A fast and intuitive tool to generate beautiful color palettes for your projects.</p>
       </div>
     </div>
   </div>
@@ -526,6 +643,37 @@
       } else {
         alert('Please enter a valid URL.');
       }
+    });
+  </script>
+
+  <!-- Filter Pills JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const pills = document.querySelectorAll('.filter-pills .pill');
+      const items = document.querySelectorAll('.links-row .item');
+
+      pills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          // Remove active class from all pills
+          pills.forEach(p => p.classList.remove('active'));
+          // Add active class to the clicked pill
+          pill.classList.add('active');
+
+          const filter = pill.getAttribute('data-filter');
+
+          items.forEach(item => {
+            if (filter === 'all') {
+              item.style.display = 'flex';
+            } else {
+              if (item.getAttribute('data-category') === filter) {
+                item.style.display = 'flex';
+              } else {
+                item.style.display = 'none';
+              }
+            }
+          });
+        });
+      });
     });
   </script>
 </body>
