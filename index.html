@@ -1,15 +1,193 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My Homepage</title>
+  <title>Hackin' Stuff Together | A Toolbox</title>
+  <meta name="description" content="Hackin' Stuff Together | A Toolbox - Your go-to link-in-bio page featuring Chat GPT, Claude AI, Bolt, GitHub, and more.">
+  
+  <!-- Phosphor Icons -->
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+  
+  <!-- Internal CSS -->
+  <style>
+    /* Reset some default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      min-height: 100%;
+      padding: 40px 20px;
+      background: linear-gradient(180deg, #1f005c, #5b0060, #870160, #ac255e, #ca485c, #e16b5c, #f39060, #ffb56b);
+      color: rgba(255, 255, 255, 1.0);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .main-container {
+      max-width: 640px;
+      margin: auto;
+      background-color: rgba(149, 123, 173, 0.5);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 4px 4px 10px 0px rgba(122,32,122,0.5);
+    }
+
+    .image-row {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .image-row img {
+      width: 128px;
+      height: 128px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .name-row {
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    .icons-row {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 30px;
+    }
+
+    .icons-row a {
+      color: rgba(255, 255, 255, 1.0);
+      font-size: 24px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .icons-row a:hover {
+      color: #ffd700; /* Gold color on hover */
+    }
+
+    .links-row {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .links-row .item {
+      display: flex;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 10px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .links-row .item:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .links-row .item img.thumbnail {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 15px;
+    }
+
+    .links-row .item a.link-text {
+      flex-grow: 1;
+      text-align: left;
+      color: rgba(255, 255, 255, 1.0);
+      text-decoration: none;
+      font-size: 18px;
+      transition: color 0.3s;
+    }
+
+    .links-row .item a.link-text:hover {
+      color: #ffd700; /* Gold color on hover */
+    }
+
+    /* Responsive Design */
+    @media (max-width: 480px) {
+      .icons-row a {
+        font-size: 20px;
+      }
+
+      .links-row .item a.link-text {
+        font-size: 16px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>My Homepage</h1>
-  
-  <i class="ph ph-open-ai-logo"></i> 
+  <div class="main-container">
+    <div class="image-row">
+      <img src="/ai.jpg" alt="Artificial Intelligence Stock Image">
+    </div>
 
-  <h1>Test</h1>
+    <div class="name-row">
+      Hackin' Stuff Together <br>[A Toolbox]
+    </div>
+    
+    <div class="icons-row">
+      <a href="https://chatgpt.com/" target="_blank" title="Chat GPT">
+        <i class="ph ph-chat-text"></i>
+      </a>
+      <a href="https://claude.ai/" target="_blank" title="Claude">
+        <i class="ph ph-chat-square-text"></i>
+      </a>
+      <a href="https://bolt.new/" target="_blank" title="Bolt">
+        <i class="ph ph-link"></i>
+      </a>
+      <a href="https://github.com/Grantsullens" target="_blank" title="GitHub">
+        <i class="ph ph-github-logo"></i>
+      </a>
+    </div>
+
+    <div class="links-row">
+      <!-- Example Link Item -->
+      <div class="item">
+        <img class="thumbnail" src="/thumbnails/chatgpt.png" alt="Chat GPT">
+        <a class="link-text" href="https://chatgpt.com/" target="_blank">
+          Chat GPT
+        </a>
+      </div>
+
+      <div class="item">
+        <img class="thumbnail" src="/thumbnails/claude.png" alt="Claude AI">
+        <a class="link-text" href="https://claude.ai/" target="_blank">
+          Claude AI
+        </a>
+      </div>
+
+      <div class="item">
+        <img class="thumbnail" src="/thumbnails/bolt.png" alt="Bolt">
+        <a class="link-text" href="https://bolt.new/" target="_blank">
+          Bolt
+        </a>
+      </div>
+
+      <div class="item">
+        <img class="thumbnail" src="/thumbnails/github.png" alt="GitHub">
+        <a class="link-text" href="https://github.com/Grantsullens" target="_blank">
+          GitHub
+        </a>
+      </div>
+
+      <!-- Add more items as needed -->
+    </div>
+  </div>
 </body>
 </html>
